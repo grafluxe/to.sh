@@ -1,10 +1,3 @@
-# to.sh
-
-**STILL IN BETA**
-
-More details coming soon. For now, see the scripts help page:
-
-```
   to.sh
   =====
 
@@ -60,13 +53,3 @@ More details coming soon. For now, see the scripts help page:
 
     License
       MIT
-
-```
-
-## License
-
-Copyright (c) 2017 Leandro Silva (http://grafluxe.com)
-
-Released under the MIT License.
-
-See LICENSE.md for entire terms.
