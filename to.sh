@@ -4,13 +4,7 @@
 #Copyright: 2017 Leandro Silva
 #License: MIT
 
-#TODO: create installer
-#TODO: create uninstaller
-#TODO: add to homebrew?
-#TODO: spell check messages
-#TODO: add custom tag naming
-
-_version_80324="0.2.0";
+_version_80324="1.0.0";
 
 _dir_install_80324=~/.to;
 _fi_completion_80324=$_dir_install_80324/to-completion.sh;
@@ -18,14 +12,24 @@ _fi_routes_80324=$_dir_install_80324/to-routes.txt;
 _fi_help_80324=$_dir_install_80324/to-help.txt;
 
 to() {
-  case "$1" in
-    "--add") _add_80324 $2;;
-    "--rm") _remove_80324 $2;;
-    "--list") _list_80324 $2;;
-    "--help") echo "" && cat $_fi_help_80324 && echo "";;
-    "--version") echo "to.sh v$_version_80324";;
-    *) _goto_80324 $1;;
-  esac
+  if [ -z "$1" ]; then
+    msg="to.sh\n";
+    msg+="-\n";
+    msg+="Usage: to [<tag> | <options>]\n";
+    msg+="Help : to --help";
+
+    echo -e "$msg";
+  else
+    case "$1" in
+      "--add") _add_80324 $2;;
+      "--remove") _remove_80324 $2;;
+      "--list") _list_80324 $2;;
+      "--help") echo "" && cat $_fi_help_80324 && echo "";;
+      "--version") echo "to.sh v$_version_80324";;
+      "--retag") _retag_80324 $2;;
+      *) _goto_80324 $1;;
+    esac;
+  fi;
 }
 
 _get_route_80324() {
@@ -62,27 +66,28 @@ _add_80324() {
   route=$(_get_route_80324);
 
   if [ -z "$route" ]; then
-    tag=$(echo $(basename $(pwd)) | sed "s/\([A-Z]\)/_\1/g" | sed "s/[ -]/_/g" | sed "s/^_//g" | awk '{print tolower($1)}');
-    path=$(pwd);
+    tag=$(echo $(basename $(pwd)) | sed "s/ /_/g");
     has_tag=$(grep "^$tag ->" $_fi_routes_80324);
 
     if [ ! -z "$has_tag" ]; then
-      msg_path=$(echo $has_tag | awk -F ' -> ' '{print $2}');
+      path=$(echo $has_tag | awk -F ' -> ' '{print $2}');
 
       msg="Tag Already Exists\n";
       msg+="-\n";
 
       if _show_verbose_80324 $1; then
         msg+="Command: to $tag\n";
-        msg+="Path   : $msg_path\n";
+        msg+="Path   : $path\n";
         msg+="Tag    : $tag\n";
         msg+="Note   : You must delete the previous route before proceeding.\n";
         msg+="Help   : to --help";
       else
-        msg+="Path: $msg_path\n";
+        msg+="Path: $path\n";
         msg+="Note: You must delete the previous route before proceeding.";
       fi;
     else
+      path=$(pwd);
+
       echo "$tag -> $path" >> $_fi_routes_80324;
       _update_completion_list_80324;
 
@@ -149,7 +154,7 @@ _list_80324() {
     echo -e "$msg";
   fi
 
-  column -t -s " " $_fi_routes_80324;
+  cat $_fi_routes_80324 | sed "s/->/\`-> /" | column -t -s "\`";
 }
 
 _goto_80324() {
@@ -170,7 +175,7 @@ _goto_80324() {
       to_dir="$(echo "$route" | awk -F ' -> ' '{print $2}')";
 
       if [ -d "$to_dir" ]; then
-        cd $to_dir;
+        cd "$to_dir";
       else
         echo "$(grep -v "$route\$" $_fi_routes_80324)" > $_fi_routes_80324;
 
@@ -184,4 +189,38 @@ _goto_80324() {
       fi;
     fi;
   fi;
+}
+
+_retag_80324() {
+  route=$(_get_route_80324);
+
+  if [ -z "$route" ]; then
+    msg="No Such Route Exists";
+  else
+    if [ -z "$1" ]; then
+      msg="Usage: to --retag <tag>";
+    else
+      path=$(pwd);
+      tag=$@;
+      valid_tag_name=$(echo $tag | grep " ");
+
+      if [ -z "$valid_tag_name" ]; then
+        echo -e "$(grep -v "$path\$" $_fi_routes_80324)\n$tag -> $path" > $_fi_routes_80324;
+
+        msg="Tag Updated\n";
+        msg+="-\n";
+        msg+="From: $(echo $route | awk -F ' -> ' '{print $1}')\n";
+        msg+="To  : $tag";
+
+        _update_completion_list_80324;
+      else
+        msg="Bad Tag Name\n";
+        msg+="-\n";
+        msg+="Note: Your tag cannot contain spaces.\n";
+        msg+="Help: to --help";
+      fi;
+    fi;
+  fi;
+
+  echo -e "$msg";
 }
