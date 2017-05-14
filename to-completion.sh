@@ -5,6 +5,7 @@ _to_80324() {
   COMPREPLY=($(compgen -W "$names" -- $cur));
 }
 
-names="--add --remove --list --help --version --retag ";
+names="--add --remove --list --help --version --retag";
 names+="";
+
 complete -F _to_80324 to;

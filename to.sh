@@ -52,11 +52,10 @@ _update_completion_list_80324() {
   completion_list="";
 
   while read route; do
-    completion_list+=$(echo " $route" | awk -F ' ->' '{print $1}');
+    completion_list+=\ $(echo "$route" | awk -F ' -> ' '{print $1}');
   done < $_fi_routes_80324;
 
-  fi_updated=$(sed '$d' $_fi_completion_80324 | sed '$d');
-  fi_updated+=$(echo -e "\nnames+=\"$completion_list\"; \ncomplete -F _to to;");
+  fi_updated=$(sed "s/\(names\+=\).*;/\1\"$completion_list\";/" $_fi_completion_80324);
 
   echo "$fi_updated" > $_fi_completion_80324;
   source $_fi_completion_80324;
