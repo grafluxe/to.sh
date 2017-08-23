@@ -88,19 +88,19 @@ This project installs to your $HOME directory.
 ### Via CURL
 
 ```
-curl -Lko to-sh.zip https://github.com/Grafluxe/to.sh/archive/v1.0.0.zip && \
+curl -Lko to-sh.zip https://github.com/Grafluxe/to.sh/archive/v1.0.1.zip && \
 unzip to-sh.zip && \
-sh to.sh-1.0.0/to-setup.sh && \
+sh to.sh-1.0.1/to-setup.sh && \
 source ~/.profile && \
 echo Cleaning up... && \
-rm -fr to.sh-1.0.0 && \
+rm -fr to.sh-1.0.1 && \
 rm to-sh.zip && \
 echo Done!
 ```
 
 ### Via zip file
 
-- Download the [zip file](https://github.com/Grafluxe/to.sh/archive/v1.0.0.zip).
+- Download the [zip file](https://github.com/Grafluxe/to.sh/archive/v1.0.1.zip).
 - Unzip it.
 - Run `sh to-setup.sh`.
 - Delete the zip and project files.
@@ -123,9 +123,9 @@ Doing so will delete all files associated with to.sh along with your tags.
 To be thorough, open your `~/.profile` and delete the following:
 
 ```
-if [ -f "/user/path/.to/to.sh" ]; then
-  source "/user/path/.to/to.sh";
-  source "/user/path/.to/to-completion.sh";
+if [ -f ~/.to/to.sh ]; then
+  source ~/.to/to.sh;
+  source ~/.to/to-completion.sh;
 fi
 ```
 
