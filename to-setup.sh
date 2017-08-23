@@ -20,10 +20,10 @@ fi_help=$dir_install/to-help.txt;
 fi_license=$dir_install/LICENSE.md;
 fi_routes=$dir_install/to-routes.txt;
 
-has_src=$(cat $fi_profile | grep "$fi_main" | wc -l);
+has_src=$(cat $fi_profile | grep "to.sh" | wc -l);
 
 if [ $has_src = "0" ]; then
-  echo "if [ -f \"$fi_main\" ]; then\n  source \"$fi_main\";\n  source \"$fi_completion\";\nfi\n" >> $fi_profile;
+  echo "\n\nif [ -f ~/.to/to.sh ]; then\n  source ~/.to/to.sh;\n  source ~/.to/to-completion.sh;\nfi\n" >> $fi_profile;
 fi;
 
 if [ ! -d "$dir_install" ]; then
