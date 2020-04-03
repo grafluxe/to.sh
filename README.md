@@ -78,8 +78,8 @@ to app            #easily go to the 'myapp' directory
 - Bash's *tab to autocomplete* feature is supported across all options and tags.
   - Adding a tag will trigger an update to include your new tag in the completion index.
 - Retagging a route (updating its tag name) does not alter your directory. It only updates the tag name used by this tool.
-- While this project has been tested using Bash, it should work on similar shells (e.g. sh, zsh).
-- I save to `~/.profile` in order to allow this script to work across other shells. If you have a `~/.bash_profile` loading, you can source `~/.profile` from there (or move the newly added to.sh condition from `~/.profile` to your profile).
+- This project was written for Bash shells, but also supports Zsh shells.
+  - Its entry file is sourced in both `~/.profile` (for Bash) and `~/.zshrc` (for Zsh).
 
 ## Install
 
@@ -88,19 +88,20 @@ This project installs to your $HOME directory.
 ### Via CURL
 
 ```
-curl -Lko to-sh.zip https://github.com/Grafluxe/to.sh/archive/v1.0.1.zip && \
+curl -Lko to-sh.zip https://github.com/Grafluxe/to.sh/archive/v1.1.0.zip && \
 unzip to-sh.zip && \
-sh to.sh-1.0.1/to-setup.sh && \
+sh to.sh-1.1.0/to-setup.sh && \
 source ~/.profile && \
+source ~/.zshrc && \
 echo Cleaning up... && \
-rm -fr to.sh-1.0.1 && \
+rm -fr to.sh-1.1.0 && \
 rm to-sh.zip && \
 echo Done!
 ```
 
 ### Via zip file
 
-- Download the [zip file](https://github.com/Grafluxe/to.sh/archive/v1.0.1.zip).
+- Download the [zip file](https://github.com/Grafluxe/to.sh/archive/v1.1.0.zip).
 - Unzip it.
 - Run `sh to-setup.sh`.
 - Delete the zip and project files.
@@ -115,17 +116,16 @@ You can clone this project, run `sh to-setup.sh`, and then delete everything you
 You can simply uninstall this tool by running the following command:
 
 ```
-rm -rf ~/.to && unset -f to && complete -r to
+rm -rf ~/.to && unset to && complete -r to
 ```
 
 Doing so will delete all files associated with to.sh along with your tags.
 
-To be thorough, open your `~/.profile` and delete the following:
+To be thorough, open your `~/.profile` and `~/.zshrc` files and delete the following:
 
 ```
 if [ -f ~/.to/to.sh ]; then
-  source ~/.to/to.sh;
-  source ~/.to/to-completion.sh;
+  ...
 fi
 ```
 
