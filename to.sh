@@ -4,6 +4,8 @@
 #Copyright: 2017 Leandro Silva
 #License: MIT
 
+source ~/.to/to-completion.sh;
+
 _version_80324="1.0.0";
 
 _dir_install_80324=~/.to;
