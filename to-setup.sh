@@ -7,7 +7,8 @@
 dir_here=$(dirname $0);
 dir_install=~/.to;
 
-fi_profile=~/.profile;
+fi_profile_bash=~/.profile;
+fi_profile_zsh=~/.zshrc;
 
 fi_main_here=$dir_here/to.sh;
 fi_completion_here=$dir_here/to-completion.sh;
@@ -20,10 +21,36 @@ fi_help=$dir_install/to-help.txt;
 fi_license=$dir_install/LICENSE.md;
 fi_routes=$dir_install/to-routes.txt;
 
-has_src=$(cat $fi_profile | grep "to.sh" | wc -l);
+function has_src {
+  cat $1 | grep "to.sh" | wc -l;
+}
 
-if [ $has_src = "0" ]; then
-  echo "\n\nif [ -f ~/.to/to.sh ]; then\n  source ~/.to/to.sh;\n  source ~/.to/to-completion.sh;\nfi\n" >> $fi_profile;
+# bash
+if [[ -f $fi_profile_bash ]]; then
+  has_src_bash=$(has_src $fi_profile_bash);
+else
+  has_src_bash="0";
+fi
+
+if [ $has_src_bash = "0" ]; then
+  echo "\nif [ -f ~/.to/to.sh ]; then\n  source ~/.to/to.sh;\nfi\n" >> $fi_profile_bash;
+fi;
+
+# zsh
+if [[ -f $fi_profile_zsh ]]; then
+  has_src_zsh=$(has_src $fi_profile_zsh);
+else
+  has_src_zsh="0";
+fi
+
+if [ $has_src_zsh = "0" ]; then
+  load="\nif [ -f ~/.to/to.sh ]; then\n";
+  load+=" autoload compinit && compinit;\n";
+  load+=" autoload bashcompinit && bashcompinit;\n";
+  load+=" emulate sh -c 'source ~/.to/to.sh';\n";
+  load+="fi\n";
+
+  echo $load >> $fi_profile_zsh;
 fi;
 
 if [ ! -d "$dir_install" ]; then
@@ -38,7 +65,7 @@ if [ ! -d "$dir_install" ]; then
 
   msg="Installed Successfully\n";
   msg+="-\n";
-  msg+="To begin, refresh your profile (run 'source ~/.profile'), then run the 'to --help' command.";
+  msg+="To begin, open a new shell tab/window, then run the 'to --help' command.";
 else
   msg+="Already Installed\n";
   msg+="-\n";
