@@ -87,16 +87,14 @@ This project installs to your $HOME directory.
 
 ### Via CURL
 
+Zsh:
 ```
-curl -Lko to-sh.zip https://github.com/Grafluxe/to.sh/archive/v1.1.0.zip && \
-unzip to-sh.zip && \
-sh to.sh-1.1.0/to-setup.sh && \
-source ~/.profile && \
-source ~/.zshrc && \
-echo Cleaning up... && \
-rm -fr to.sh-1.1.0 && \
-rm to-sh.zip && \
-echo Done!
+/bin/zsh -c "$(curl -Lk https://raw.githubusercontent.com/grafluxe/to.sh/master/install.sh)"
+```
+
+Bash:
+```
+/bin/bash -c "$(curl -Lk https://raw.githubusercontent.com/grafluxe/to.sh/master/install.sh)"
 ```
 
 ### Via zip file
