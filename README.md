@@ -88,11 +88,13 @@ This project installs to your $HOME directory.
 ### Via CURL
 
 Zsh:
+
 ```
 /bin/zsh -c "$(curl -Lk https://raw.githubusercontent.com/grafluxe/to.sh/master/install.sh)"
 ```
 
 Bash:
+
 ```
 /bin/bash -c "$(curl -Lk https://raw.githubusercontent.com/grafluxe/to.sh/master/install.sh)"
 ```
@@ -129,7 +131,7 @@ fi
 
 ## License
 
-Copyright (c) 2017 Leandro Silva (http://grafluxe.com)
+Copyright (c) 2021 Leandro Silva (http://grafluxe.com)
 
 Released under the MIT License.
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Author: Leandro Silva (http://grafluxe.com)
-#Copyright: 2017 Leandro Silva
+#Copyright: 2021 Leandro Silva
 #License: MIT
 
 dir_here=$(dirname $0);

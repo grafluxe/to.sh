@@ -46,7 +46,7 @@
       Leandro Silva
 
     Copyright
-      (c) 2017 Leandro Silva (http://grafluxe.com)
+      (c) 2021 Leandro Silva (http://grafluxe.com)
 
     License
       MIT
