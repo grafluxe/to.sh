@@ -101,7 +101,7 @@ Bash:
 
 ### Via zip file
 
-- Download the [zip file](https://github.com/Grafluxe/to.sh/archive/v1.1.0.zip).
+- Download the [zip file](https://github.com/Grafluxe/to.sh/archive/v1.2.0.zip).
 - Unzip it.
 - Run `sh to-setup.sh`.
 - Delete the zip and project files.

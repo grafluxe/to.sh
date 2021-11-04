@@ -6,7 +6,7 @@
 
 source ~/.to/to-completion.sh;
 
-_version_80324="1.1.0";
+_version_80324="1.2.0";
 
 _dir_install_80324=~/.to;
 _fi_completion_80324=$_dir_install_80324/to-completion.sh;

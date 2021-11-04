@@ -4,7 +4,7 @@
 #Copyright: 2021 Leandro Silva
 #License: MIT
 
-version="1.1.0"
+version="1.2.0"
 
 curl -Lko to-sh.zip https://github.com/Grafluxe/to.sh/archive/v$version.zip
 unzip to-sh.zip
