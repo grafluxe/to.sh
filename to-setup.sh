@@ -45,9 +45,9 @@ fi
 
 if [ $has_src_zsh = "0" ]; then
   load="\nif [ -f ~/.to/to.sh ]; then\n";
-  load+=" autoload compinit && compinit;\n";
-  load+=" autoload bashcompinit && bashcompinit;\n";
-  load+=" emulate sh -c 'source ~/.to/to.sh';\n";
+  load+=" autoload -Uz compinit && compinit\n";
+  load+=" autoload -Uz bashcompinit && bashcompinit\n";
+  load+=" emulate sh -c 'source ~/.to/to.sh'\n";
   load+="fi\n";
 
   echo $load >> $fi_profile_zsh;
